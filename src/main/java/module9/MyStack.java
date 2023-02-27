@@ -13,7 +13,7 @@ public class MyStack<E> extends ArrayBasedCollection {
     }
 
     public void remove(int index) {
-        if (index > size) {
+        if (index > size && index < 0) {
             throw new IndexOutOfBoundsException();
         }
         System.arraycopy(values, index + 1, values, index, size - index - 1);
