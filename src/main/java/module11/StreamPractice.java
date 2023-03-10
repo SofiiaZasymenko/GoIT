@@ -6,6 +6,9 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.MatchResult;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -14,7 +17,7 @@ public class StreamPractice {
     public static void main(String[] args) {
         StreamPractice streamPractice = new StreamPractice();
         List<String> names = Arrays.asList("John", "Bill", "Max", "Alex", "Sam", "Pamela", "Dave", "Pascal", "Erik", "Mary");
-        String[] stringNumbers = {"1, 2, 0", "4, 5"};
+        String[] stringNumbers = {"1, 2, 0", "4, 5", "11, 22", "-5, -10"};
         System.out.println("--- Task 1 ---");
         System.out.println(streamPractice.getOddNamesAsString(names));
         System.out.println("--- Task 2 ---");
@@ -64,12 +67,13 @@ public class StreamPractice {
                 .collect(Collectors.toList());
     }
 
-    public String getNumbersSorted(String[] array) {
+    public Object getNumbersSorted(String[] array) {
+        Pattern pattern = Pattern.compile("(-?\\d+)");
         return Arrays.stream(array)
-                .flatMapToInt(String::chars)
-                .filter(Character::isDigit)
+                .flatMap(str -> pattern.matcher(str).results())
+                .map(matchResult -> Integer.valueOf(matchResult.group()))
                 .sorted()
-                .mapToObj(i -> String.valueOf((char) i))
+                .map(String::valueOf)
                 .collect(Collectors.joining(", "));
     }
 
