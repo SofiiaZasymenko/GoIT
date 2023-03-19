@@ -15,7 +15,7 @@ public class HomeworkTask2 {
         MyProducer<Integer> fizzProducer = new MyAbstractProducer<>() {
             @Override
             public void action(Integer n) throws InterruptedException {
-                if (n % 3 == 0) {
+                if (n % 3 == 0 && n % 5 != 0) {
                     queue.put(new Pair<>(n, "fizz"));
                 }
             }
@@ -23,7 +23,7 @@ public class HomeworkTask2 {
         MyProducer<Integer> buzzProducer = new MyAbstractProducer<>() {
             @Override
             public void action(Integer n) throws InterruptedException {
-                if (n % 5 == 0) {
+                if (n % 5 == 0 && n % 3 != 0) {
                     queue.put(new Pair<>(n, "buzz"));
                 }
             }
