@@ -67,8 +67,10 @@ public class FileHandler {
                     }
                 } else {
                     String[] wordsInLine = line.split("\\s+");
-                    User user = new User(wordsInLine[0], Integer.parseInt(wordsInLine[1]));
-                    users.add(user);
+                    if (isUserValid(wordsInLine)) {
+                        User user = new User(wordsInLine[0], Integer.parseInt(wordsInLine[1]));
+                        users.add(user);
+                    }
                 }
             }
         } catch (IOException e) {
@@ -82,6 +84,34 @@ public class FileHandler {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private boolean isUserValid(String[] userRecords) {
+        if (userRecords.length != 2) {
+            System.err.println("The user record should contain 'name age': " + Arrays.toString(userRecords));
+            return false;
+        }
+        String name = userRecords[0];
+        if (name == null || name.isBlank()) {
+            System.err.println("The name is not valid: " + name);
+            return false;
+        }
+        String age = userRecords[1];
+        if (age == null || age.isBlank()) {
+            System.err.println("The age is not valid: " + age);
+            return false;
+        }
+        try {
+            int parsedAge = Integer.parseInt(age);
+            if (parsedAge < 0) {
+                System.err.println("The age must be positive: " + age);
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            System.err.println("The age is not valid: " + age);
+            return false;
+        }
+        return true;
     }
 
     public void printWordFrequency(String fileName) {
