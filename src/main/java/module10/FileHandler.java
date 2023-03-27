@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class FileHandler {
-    public static final String FILE_PATH = "src/main/java/module10/";
+    private static final String FILE_PATH = "src/main/java/module10/";
 
     public static void main(String[] args) {
         FileHandler fileHandler = new FileHandler();
