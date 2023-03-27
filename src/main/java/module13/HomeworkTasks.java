@@ -50,6 +50,7 @@ public class HomeworkTasks {
         } else {
             System.out.println("The user " + userId + " doesn't have posts");
         }
+
         System.out.println("--- Task 3 ---");
         List<Task> allTasks = userService.getTasksByUserId(userId, null);
         List<Task> uncompletedTasks = userService.getTasksByUserId(userId, false);
